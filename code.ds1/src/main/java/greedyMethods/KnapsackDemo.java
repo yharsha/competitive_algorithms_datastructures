@@ -2,6 +2,7 @@ package greedyMethods;
 
 import java.util.Arrays;
 
+//0-1 Knapsack Problem
 public class KnapsackDemo {
 	
 	static int max(int a,int b) {return (a>b)?a:b;}
@@ -59,7 +60,7 @@ public class KnapsackDemo {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 			System.out.println("Hello AlgoDS..!!");
-			System.out.println("KnapSack  Demo by Greedy");
+			System.out.println("0-1 KnapSack  Demo by Greedy");
 			int wt[]=new int[] {10,20,30};
 			int val[]=new int[] {60,100,120};
 			int  W = 50; 

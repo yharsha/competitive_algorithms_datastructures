@@ -184,6 +184,114 @@ public class ArrayProblems {
 		
 		return sb.length() < s.length() ? sb.toString() : s;
 	}
+	
+	public static void rotateMatrix(int N,int arr[][])
+	{
+		//find no of squares to shift
+		for(int x=0;x<N/2;x++)
+		{
+			//consider like a normal 1d array
+			for(int y=x;y<N-1-x;y++)
+			{
+				int val=arr[x][y];
+				//shift left to top
+				arr[x][y] = arr[N-1-y][x];
+				
+				//shift bottom to left
+				arr[N-1-y][x]= arr[N-1-x][N-1-y];
+				
+				//right to bottom
+				arr[N-1-x][N-1-y] = arr[y][N-1-x];
+				
+				//top to right
+				arr[y][N-1-x] = val;
+			}
+		}
+	}
+	
+   public  static void displayMatrix(int N, int mat[][]) 
+    { 
+        for (int i = 0; i < N; i++) 
+        { 
+            for (int j = 0; j < N; j++) 
+                System.out.print(" " + mat[i][j]); 
+       
+            System.out.print("\n"); 
+        } 
+        System.out.print("\n"); 
+    } 
+   
+   public static void zeroMatrix(int arr[][],int N)
+   {
+	   boolean rowHasZero = false,columnHasZero=false;
+	   
+	   
+	   int m=arr.length;
+	   int n=arr[0].length;
+	   
+	 //check if first row has zero
+	   for(int j=0;j<n;j++)
+	   {
+		   if(arr[0][j]==0)
+		   {
+			   rowHasZero=true;
+			   break;
+		   }
+	   }
+	   
+		 //check if first column has zero
+	   for(int i=0;i<m;i++)
+	   {
+		   if(arr[i][0]==0)
+		   {
+			   columnHasZero=true;
+			   break;
+		   }
+	   }
+	   
+	   //check which all rows or columns have zero
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				if (arr[i][j] == 0) {
+					arr[i][0] = 0;
+					arr[0][j] = 0;
+				}
+			}
+		}
+		
+		//Nullify rows
+		for(int i=1;i<m;i++)
+		{
+			if(arr[i][0]==0) nullifyRow(arr, i);
+		}
+		
+		//Nullify cols
+		for(int j=1;j<n;j++)
+		{
+			if(arr[0][j]==0) nullifyColumn(arr, j);
+		}
+		
+		if(rowHasZero)nullifyRow(arr, 0);
+		if(columnHasZero)nullifyColumn(arr, 0);
+		
+   }
+   
+   public static void nullifyRow(int arr[][],int row)
+   {
+	   for(int j=0;j<arr[0].length;j++)
+	   {
+		   arr[row][j]=0;
+	   }
+   }
+   
+   public static void nullifyColumn(int arr[][],int col)
+   {
+	   for(int i=0;i<arr.length;i++)
+	   {
+		   arr[i][col]=0;
+	   }
+   }
+   
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println(checkUniqueString("Harsha.."));
@@ -194,7 +302,32 @@ public class ArrayProblems {
 		System.out.println("isPermutationOfPalindrome: "+ isPermutationOfPalindrome("HAH"));
 		System.out.println("Is one Edit Away: "+checkIfOneEditAway("pale", "bae"));
 		System.out.println("Compressed String: "+compressString("aabcccccaaa"));
-		
+		  int N = 4; 
+          
+	        // Test Case 1 
+	        int mat[][] = 
+	        { 
+	            {1, 2, 3, 4}, 
+	            {5, 6, 7, 8}, 
+	            {9, 10, 11, 12}, 
+	            {13, 14, 15, 16} 
+	        }; 
+	        rotateMatrix(N,mat); 
+	        
+	        // Print rotated matrix 
+	        System.out.println("-----Rotated clockwise 90 degree Matrix----");
+	        displayMatrix(N,mat); 
+	        System.out.println("");
+	        System.out.println("-----Zero Matrix----");
+	        int mat1[][] = 
+		        { 
+		            {1, 2, 3, 4}, 
+		            {5, 0, 7, 8}, 
+		            {9, 10, 11, 12}, 
+		            {13, 14, 15, 0} 
+		        }; 
+	        zeroMatrix(mat1, N);
+	        displayMatrix(N, mat1);
 
 	}
 

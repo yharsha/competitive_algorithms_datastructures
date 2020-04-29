@@ -9,6 +9,8 @@ import java.util.Stack;
 import javax.management.Descriptor;
 import javax.print.attribute.standard.Destination;
 
+import com.sun.corba.se.impl.orbutil.graph.Node;
+
 public class Graph<T> {
 	
 	// We use Hashmap to store the edges in the graph 
@@ -197,6 +199,37 @@ public class Graph<T> {
     		}
     	
     	return false;
+    }
+    
+    
+    public void TopologicalSort()
+    {
+    	boolean visited [] = new boolean[map.keySet().size()];
+    	Stack<Integer> stack =  new Stack<Integer>();
+    	for(T x:map.keySet())
+    	{
+    		TopologicalSort(x,visited,stack);
+    	}
+    	System.out.println("topological sort...parent at left..childs at right");
+    	while(!stack.isEmpty())
+    	{
+    		System.out.print(stack.pop());
+    	}
+    	
+    }
+    
+    public void TopologicalSort(T vertex,boolean visited [],Stack<Integer> stack)
+    {
+    	visited[(Integer) vertex]=true;
+    	
+    	//iterate all its children...child need to be executed before parent
+    	for(T child:map.get(vertex))
+    	{
+    		if(!visited[(Integer) child])
+    			TopologicalSort(child,visited,stack);
+    	}
+    	stack.add((Integer) vertex);
+    	
     }
 
 }
